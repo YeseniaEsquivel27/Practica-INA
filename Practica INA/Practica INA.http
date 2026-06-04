@@ -1,0 +1,6 @@
+@Practica_INA_HostAddress = http://localhost:5210
+
+GET {{Practica_INA_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
