@@ -4,10 +4,12 @@ namespace Practica_INA.Data.Interfaces
 {
     public interface IProductoRepository
     {
-        List<Producto> GetAll();
-        Producto GetById(int id);
-        void Add(Producto producto);
-        void Update(Producto producto);
-        void Delete(int id);
+        Task<List<Producto>> ObtenerTodosAsync();
+        Task<Producto> ObtenerPorIdAsync(int id);
+        Task AgregarAsync(Producto producto);
+        Task ActualizarAsync(Producto producto);
+        Task EliminarAsync(int id);
+        Task<bool> ExisteAsync(int id);
+        Task<Producto> ObtenerPorNombreAsync(string nombre);
     }
 }

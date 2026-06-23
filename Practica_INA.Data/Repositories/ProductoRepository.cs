@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Practica_INA.Data.Context;
 using Practica_INA.Data.Interfaces;
 using Practica_INA.Data.Models;
 
@@ -5,47 +7,62 @@ namespace Practica_INA.Data.Repositories
 {
     public class ProductoRepository : IProductoRepository
     {
-        private static List<Producto> lista = new List<Producto>()
-        {
-            new Producto { Id = 1, Nombre = "Laptop", Descripcion = "Laptop gamer", Precio = 1500, Stock = 10 },
-            new Producto { Id = 2, Nombre = "Mouse", Descripcion = "Mouse inalambrico", Precio = 25, Stock = 50 }
-        };
+        private readonly PracticaContext _context;
 
-        public List<Producto> GetAll()
+        public ProductoRepository(PracticaContext context)
         {
-            return lista;
+            _context = context;
         }
 
-        public Producto GetById(int id)
+        public async Task<List<Producto>> ObtenerTodosAsync()
         {
-            return lista.FirstOrDefault(p => p.Id == id);
+            return await _context.Productos
+                .Include(p => p.CategoriaProducto)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
-        public void Add(Producto producto)
+        public async Task<Producto> ObtenerPorIdAsync(int id)
         {
-            producto.Id = lista.Count + 1;
-            lista.Add(producto);
+            return await _context.Productos
+                .Include(p => p.CategoriaProducto)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public void Update(Producto producto)
+        public async Task AgregarAsync(Producto producto)
         {
-            var prod = lista.FirstOrDefault(p => p.Id == producto.Id);
-            if (prod != null)
+            _context.Productos.Add(producto);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ActualizarAsync(Producto producto)
+        {
+            _context.Productos.Update(producto);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task EliminarAsync(int id)
+        {
+            var producto = await _context.Productos.FindAsync(id);
+            if (producto != null)
             {
-                prod.Nombre = producto.Nombre;
-                prod.Descripcion = producto.Descripcion;
-                prod.Precio = producto.Precio;
-                prod.Stock = producto.Stock;
+                _context.Productos.Remove(producto);
+                await _context.SaveChangesAsync();
             }
         }
 
-        public void Delete(int id)
+        public async Task<bool> ExisteAsync(int id)
         {
-            var prod = lista.FirstOrDefault(p => p.Id == id);
-            if (prod != null)
-            {
-                lista.Remove(prod);
-            }
+            return await _context.Productos.AnyAsync(p => p.Id == id);
+        }
+
+        public async Task<Producto> ObtenerPorNombreAsync(string nombre)
+        {
+            return await _context.Productos
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Nombre == nombre);
         }
     }
 }
+

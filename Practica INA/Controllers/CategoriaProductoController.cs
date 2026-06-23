@@ -7,24 +7,24 @@ namespace Practica_INA.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductoController : ControllerBase
+    public class CategoriaProductoController : ControllerBase
     {
-        private readonly IProductoService _service;
+        private readonly ICategoriaProductoService _service;
 
-        public ProductoController(IProductoService service)
+        public CategoriaProductoController(ICategoriaProductoService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<Response<List<ProductoResponseDTO>>>> ObtenerTodos()
+        public async Task<ActionResult<Response<List<CategoriaProductoResponseDTO>>>> ObtenerTodos()
         {
             var resultado = await _service.ObtenerTodosAsync();
             return Ok(resultado);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Response<ProductoResponseDTO>>> ObtenerPorId(int id)
+        public async Task<ActionResult<Response<CategoriaProductoResponseDTO>>> ObtenerPorId(int id)
         {
             var resultado = await _service.ObtenerPorIdAsync(id);
             if (!resultado.Success)
@@ -35,7 +35,7 @@ namespace Practica_INA.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Response<ProductoResponseDTO>>> Crear([FromBody] ProductoCreateDTO dto)
+        public async Task<ActionResult<Response<CategoriaProductoResponseDTO>>> Crear([FromBody] CategoriaProductoCreateDTO dto)
         {
             var resultado = await _service.CrearAsync(dto);
             if (!resultado.Success)
@@ -46,7 +46,7 @@ namespace Practica_INA.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Response<ProductoResponseDTO>>> Actualizar(int id, [FromBody] ProductoUpdateDTO dto)
+        public async Task<ActionResult<Response<CategoriaProductoResponseDTO>>> Actualizar(int id, [FromBody] CategoriaProductoUpdateDTO dto)
         {
             dto.Id = id;
             var resultado = await _service.ActualizarAsync(dto);

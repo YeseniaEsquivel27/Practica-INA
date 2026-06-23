@@ -1,6 +1,6 @@
-namespace Practica_INA.Data.Models
+namespace Practica_INA.Data.Models.DTOs
 {
-    public class Producto
+    public class ProductoUpdateDTO
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -8,12 +8,6 @@ namespace Practica_INA.Data.Models
         public decimal Precio { get; set; }
         public int Stock { get; set; }
         public bool Estado { get; set; }
-        public DateTime FechaCreacion { get; set; }
-
-        // Clave foránea
         public int CategoriaProductoId { get; set; }
-
-        // Propiedad de navegación
-        public CategoriaProducto CategoriaProducto { get; set; }
     }
 }
