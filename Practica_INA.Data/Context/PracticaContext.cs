@@ -16,24 +16,20 @@ namespace Practica_INA.Data.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configurar relación Categoría - Producto (1:N)
             modelBuilder.Entity<Producto>()
                 .HasOne(p => p.CategoriaProducto)
                 .WithMany(c => c.Productos)
                 .HasForeignKey(p => p.CategoriaProductoId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configurar columna Precio
             modelBuilder.Entity<Producto>()
                 .Property(p => p.Precio)
                 .HasColumnType("decimal(18,2)");
 
-            // Índice único para nombre de categoría
             modelBuilder.Entity<CategoriaProducto>()
                 .HasIndex(c => c.Nombre)
                 .IsUnique();
 
-            // Índice único para nombre de producto
             modelBuilder.Entity<Producto>()
                 .HasIndex(p => p.Nombre)
                 .IsUnique();

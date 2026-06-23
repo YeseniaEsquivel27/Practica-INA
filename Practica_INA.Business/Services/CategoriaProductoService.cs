@@ -84,7 +84,6 @@ namespace Practica_INA.Business.Services
         {
             try
             {
-                // Validar nombre obligatorio
                 if (string.IsNullOrWhiteSpace(dto.Nombre))
                 {
                     return new Response<CategoriaProductoResponseDTO>
@@ -95,7 +94,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar nombre único
                 var categoriaExistente = await _categoriaRepository.ObtenerPorNombreAsync(dto.Nombre);
                 if (categoriaExistente != null)
                 {
@@ -138,7 +136,6 @@ namespace Practica_INA.Business.Services
         {
             try
             {
-                // Validar que existe
                 var categoriaExistente = await _categoriaRepository.ObtenerPorIdAsync(dto.Id);
                 if (categoriaExistente == null)
                 {
@@ -150,7 +147,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar nombre obligatorio
                 if (string.IsNullOrWhiteSpace(dto.Nombre))
                 {
                     return new Response<CategoriaProductoResponseDTO>
@@ -161,7 +157,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar nombre único (si cambió)
                 if (categoriaExistente.Nombre != dto.Nombre)
                 {
                     var categoriaOtroNombre = await _categoriaRepository.ObtenerPorNombreAsync(dto.Nombre);

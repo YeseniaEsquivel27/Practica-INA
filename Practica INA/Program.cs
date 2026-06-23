@@ -9,25 +9,19 @@ using Practica_INA.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Agregar DbContext
 builder.Services.AddDbContext<PracticaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Agregar AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-// Agregar Controllers
 builder.Services.AddControllers();
 
-// Agregar Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Registrar Repositories
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<ICategoriaProductoRepository, CategoriaProductoRepository>();
 
-// Registrar Services
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<ICategoriaProductoService, CategoriaProductoService>();
 

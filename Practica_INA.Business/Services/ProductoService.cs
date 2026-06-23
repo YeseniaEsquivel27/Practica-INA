@@ -87,7 +87,6 @@ namespace Practica_INA.Business.Services
         {
             try
             {
-                // Validar nombre obligatorio
                 if (string.IsNullOrWhiteSpace(dto.Nombre))
                 {
                     return new Response<ProductoResponseDTO>
@@ -98,7 +97,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar precio mayor que cero
                 if (dto.Precio <= 0)
                 {
                     return new Response<ProductoResponseDTO>
@@ -109,7 +107,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar stock mayor que cero
                 if (dto.Stock <= 0)
                 {
                     return new Response<ProductoResponseDTO>
@@ -120,7 +117,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar nombre único
                 var productoExistente = await _productoRepository.ObtenerPorNombreAsync(dto.Nombre);
                 if (productoExistente != null)
                 {
@@ -132,7 +128,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar categoría existe
                 var categoriaExiste = await _categoriaRepository.ExisteAsync(dto.CategoriaProductoId);
                 if (!categoriaExiste)
                 {
@@ -144,7 +139,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar categoría activa
                 var categoria = await _categoriaRepository.ObtenerPorIdAsync(dto.CategoriaProductoId);
                 if (!categoria.Estado)
                 {
@@ -187,7 +181,6 @@ namespace Practica_INA.Business.Services
         {
             try
             {
-                // Validar que existe
                 var productoExistente = await _productoRepository.ObtenerPorIdAsync(dto.Id);
                 if (productoExistente == null)
                 {
@@ -199,7 +192,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar nombre obligatorio
                 if (string.IsNullOrWhiteSpace(dto.Nombre))
                 {
                     return new Response<ProductoResponseDTO>
@@ -210,7 +202,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar precio mayor que cero
                 if (dto.Precio <= 0)
                 {
                     return new Response<ProductoResponseDTO>
@@ -221,7 +212,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar stock mayor que cero
                 if (dto.Stock <= 0)
                 {
                     return new Response<ProductoResponseDTO>
@@ -232,7 +222,6 @@ namespace Practica_INA.Business.Services
                     };
                 }
 
-                // Validar nombre único (si cambió)
                 if (productoExistente.Nombre != dto.Nombre)
                 {
                     var productoOtroNombre = await _productoRepository.ObtenerPorNombreAsync(dto.Nombre);
@@ -247,7 +236,6 @@ namespace Practica_INA.Business.Services
                     }
                 }
 
-                // Validar categoría existe
                 var categoriaExiste = await _categoriaRepository.ExisteAsync(dto.CategoriaProductoId);
                 if (!categoriaExiste)
                 {

@@ -8,12 +8,10 @@ namespace Practica_INA.Business.Mapping
     {
         public MappingProfile()
         {
-            // Categoría mappings
             CreateMap<CategoriaProductoCreateDTO, CategoriaProducto>();
             CreateMap<CategoriaProductoUpdateDTO, CategoriaProducto>();
             CreateMap<CategoriaProducto, CategoriaProductoResponseDTO>();
 
-            // Producto mappings
             CreateMap<ProductoCreateDTO, Producto>();
             CreateMap<ProductoUpdateDTO, Producto>();
             CreateMap<Producto, ProductoResponseDTO>()

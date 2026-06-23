@@ -9,11 +9,7 @@ namespace Practica_INA.Data.Models
         public int Stock { get; set; }
         public bool Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
-
-        // Clave foránea
         public int CategoriaProductoId { get; set; }
-
-        // Propiedad de navegación
         public CategoriaProducto CategoriaProducto { get; set; }
     }
 }
