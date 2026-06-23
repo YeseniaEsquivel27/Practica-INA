@@ -1,0 +1,21 @@
+@InstitutoApp_HostAddress = http://localhost:5210
+
+POST {{InstitutoApp_HostAddress}}/api/Estudiantes
+Content-Type: application/json
+
+{ "cedula": "101230456", "nombre": "Ana", "primerApellido": "Pérez", "segundoApellido": "Vargas", "correoElectronico": "ana.perez@innovatech.ac.cr", "telefono": "8888-8888" }
+
+###
+POST {{InstitutoApp_HostAddress}}/api/Cursos
+Content-Type: application/json
+
+{ "nombre": "Programación Web", "descripcion": "ASP.NET Core Web API", "cupoMaximo": 25, "periodoAcademico": "2026-II", "fechaInicioMatricula": "2026-06-01T00:00:00Z", "fechaCierreMatricula": "2026-12-31T23:59:59Z" }
+
+###
+POST {{InstitutoApp_HostAddress}}/api/Matriculas
+Content-Type: application/json
+
+{ "estudianteId": 1, "cursoId": 1 }
+
+###
+GET {{InstitutoApp_HostAddress}}/api/Matriculas
